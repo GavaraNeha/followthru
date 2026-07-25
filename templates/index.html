@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FollowThru</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #0f1117; color: #e5e7eb; margin: 0; padding: 2rem; }
+        h1 { color: #6366f1; }
+        .subtitle { color: #9ca3af; margin-bottom: 2rem; }
+        textarea { width: 100%; height: 150px; background: #1a1d27; color: #e5e7eb; border: 1px solid #2d3140; border-radius: 8px; padding: 1rem; font-size: 0.95rem; box-sizing: border-box; }
+        button { background: #6366f1; color: white; border: none; padding: 0.7rem 1.5rem; border-radius: 6px; cursor: pointer; font-size: 1rem; margin-top: 1rem; }
+        button:hover { background: #4f46e5; }
+        .item { background: #1a1d27; border-radius: 8px; padding: 1rem; margin-top: 1rem; border-left: 4px solid #6366f1; }
+        .item.done { opacity: 0.5; border-left-color: #22c55e; }
+        .meta { color: #9ca3af; font-size: 0.85rem; margin-top: 0.3rem; }
+        .priority-high { color: #ef4444; font-weight: bold; }
+        .priority-medium { color: #f59e0b; }
+        .priority-low { color: #6b7280; }
+        #status { margin-top: 1rem; color: #9ca3af; }
+    </style>
+</head>
+<body>
+    <h1>FollowThru</h1>
+    <p class="subtitle">Turn meeting transcripts into tracked, followed-up action items.</p>
+
+    <textarea id="transcript" placeholder="Paste your meeting transcript here..."></textarea>
+    <br>
+    <button onclick="extractItems()">Extract Action Items</button>
+    <div id="status"></div>
+
+    <div id="items">
+        {% for item in items %}
+        <div class="item {{ 'done' if item.status == 'done' else '' }}" data-id="{{ item.id }}">
+            <strong>{{ item.task }}</strong>
+            <div class="meta">
+                Owner: {{ item.owner }} | Deadline: {{ item.deadline }} |
+                <span class="priority-{{ item.priority }}">{{ item.priority|upper }}</span>
+            </div>
+            {% if item.status != 'done' %}
+            <button onclick="markDone({{ item.id }})">Mark Done</button>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        async function extractItems() {
+            const transcript = document.getElementById('transcript').value;
+            const status = document.getElementById('status');
+            if (!transcript.trim()) { status.textContent = "Paste a transcript first."; return; }
+            status.textContent = "Extracting action items...";
+            const res = await fetch('/extract', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ transcript })
+            });
+            const data = await res.json();
+            if (data.error) { status.textContent = data.error; return; }
+            status.textContent = "Done. Reloading...";
+            location.reload();
+        }
+
+        async function markDone(id) {
+            await fetch('/complete/' + id, { method: 'POST' });
+            location.reload();
+        }
+    </script>
+</body>
+</html>
