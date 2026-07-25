@@ -4,7 +4,7 @@ import google.generativeai as genai
 from dotenv import load_dotenv
 
 load_dotenv()
-genai.configure(api_key=os.getenv("AQ.Ab8RN6LguyEldF1ZwaXnL7QAnjjoYS7fQMlZ5gGx_AO8CP2pnQ"))
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-2.5-flash")
 
 EXTRACTION_PROMPT = """You are an assistant that extracts action items from meeting transcripts.
