@@ -7,73 +7,77 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --indigo: #4F46E5;
-            --indigo-light: #818CF8;
-            --border: rgba(255,255,255,0.08);
-            --card: rgba(255,255,255,0.03);
-            --text: #F9FAFB;
-            --muted: #9CA3AF;
+            --pink: #F9A8D4;
+            --lavender: #C4B5FD;
+            --mint: #A7F3D0;
+            --peach: #FED7AA;
+            --border: rgba(255,255,255,0.35);
+            --card: rgba(255,255,255,0.14);
+            --text: #3F3D56;
+            --muted: #7C7A94;
         }
         * { box-sizing: border-box; }
         html, body { height: 100%; }
         body {
             font-family: 'Inter', sans-serif;
-            background: #000000;
+            background: linear-gradient(135deg, #FDF2F8 0%, #F3E8FF 40%, #E0F2FE 100%);
             color: var(--text);
             margin: 0;
             overflow-x: hidden;
             position: relative;
         }
         .blob {
-            position: fixed; border-radius: 50%; filter: blur(90px);
-            opacity: 0.25; z-index: 0; animation: float 14s ease-in-out infinite;
+            position: fixed; border-radius: 50%; filter: blur(80px);
+            opacity: 0.55; z-index: 0; animation: float 14s ease-in-out infinite;
         }
-        .blob1 { width: 420px; height: 420px; background: #4F46E5; top: -100px; left: -100px; }
-        .blob2 { width: 380px; height: 380px; background: #7C3AED; bottom: -120px; right: -80px; animation-delay: -6s; }
-        .blob3 { width: 300px; height: 300px; background: #2563EB; top: 40%; right: 20%; animation-delay: -3s; }
+        .blob1 { width: 420px; height: 420px; background: var(--pink); top: -100px; left: -100px; }
+        .blob2 { width: 380px; height: 380px; background: var(--lavender); bottom: -120px; right: -80px; animation-delay: -6s; }
+        .blob3 { width: 300px; height: 300px; background: var(--mint); top: 40%; right: 20%; animation-delay: -3s; }
         @keyframes float {
             0%, 100% { transform: translate(0,0) scale(1); }
             50% { transform: translate(30px, -20px) scale(1.08); }
         }
-        .container { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 96px 24px; }
+        .container { position: relative; z-index: 1; max-width: 1600px; margin: 0 auto; padding: 48px 40px; }
         .badge {
             display: inline-block; padding: 6px 14px; border: 1px solid var(--border);
-            background: rgba(79,70,229,0.08); backdrop-filter: blur(10px); border-radius: 999px;
-            font-size: 11px; font-weight: 700; color: var(--indigo-light);
+            background: rgba(255,255,255,0.5); backdrop-filter: blur(10px); border-radius: 999px;
+            font-size: 11px; font-weight: 700; color: #A855F7;
             letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 28px;
         }
-        h1 { font-size: 44px; font-weight: 800; line-height: 1.15; margin: 0 0 16px 0; letter-spacing: -0.02em; }
-        .subhead { color: var(--muted); font-size: 17px; line-height: 1.6; max-width: 620px; margin-bottom: 48px; }
+        h1 { font-size: 44px; font-weight: 800; line-height: 1.15; margin: 0 0 16px 0; letter-spacing: -0.02em; color: #4C1D95; }
+        .subhead { color: var(--muted); font-size: 17px; line-height: 1.6; margin-bottom: 40px; }
         .glass {
-            background: var(--card); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border); border-radius: 14px;
+            background: var(--card); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border); border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(196,181,253,0.25);
         }
-        .input-card { padding: 24px; margin-bottom: 32px; transition: border-color 300ms ease-out, box-shadow 300ms ease-out; }
-        .input-card:focus-within { border-color: var(--indigo); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15); }
+        .input-card { padding: 24px; margin-bottom: 20px; transition: border-color 300ms ease-out, box-shadow 300ms ease-out; }
+        .input-card:focus-within { border-color: var(--pink); box-shadow: 0 0 0 4px rgba(249,168,212,0.25); }
         textarea {
-            width: 100%; height: 130px; background: transparent; color: var(--text); border: none;
+            width: 100%; height: 220px; background: transparent; color: var(--text); border: none;
             padding: 0 0 16px 0; font-family: 'Inter', sans-serif; font-size: 14px; resize: vertical;
         }
         textarea:focus { outline: none; }
-        textarea::placeholder { color: #6B7280; }
+        textarea::placeholder { color: #A8A5C4; }
         .input-footer { display: flex; justify-content: flex-end; border-top: 1px solid var(--border); padding-top: 16px; }
         .btn-extract {
-            background: #FFFFFF; color: #000000; border: none; border-radius: 10px; padding: 10px 20px;
-            font-size: 14px; font-weight: 600; font-family: 'Inter', sans-serif; cursor: pointer;
+            background: linear-gradient(135deg, #F9A8D4, #C4B5FD); color: #3F3D56; border: none; border-radius: 14px; padding: 10px 22px;
+            font-size: 14px; font-weight: 700; font-family: 'Inter', sans-serif; cursor: pointer;
             display: inline-flex; align-items: center; gap: 8px; transition: all 300ms ease-out;
+            box-shadow: 0 4px 14px rgba(196,181,253,0.4);
         }
-        .btn-extract:hover { background: #E4E4E7; transform: translateY(-1px); }
-        #status { color: var(--muted); font-size: 13px; margin-bottom: 32px; }
-        .stats-row { display: flex; gap: 12px; margin-bottom: 32px; }
-        .stat-chip { padding: 14px 18px; flex: 1; }
-        .stat-num { font-size: 22px; font-weight: 800; }
+        .btn-extract:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 6px 20px rgba(196,181,253,0.55); }
+        #status { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+        .stats-row { display: flex; gap: 12px; }
+        .stat-chip { padding: 16px 18px; flex: 1; }
+        .stat-num { font-size: 24px; font-weight: 800; color: #7C3AED; }
         .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
         .category-section { margin-bottom: 36px; }
         .category-header {
             display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700;
-            color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px;
+            color: #A855F7; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px;
         }
-        .category-icon { font-size: 15px; }
+        .category-icon { font-size: 16px; }
         .feed-card { overflow: hidden; }
         .item {
             display: flex; align-items: center; justify-content: space-between; padding: 18px 22px;
@@ -86,68 +90,104 @@
         .item:nth-child(4) { animation-delay: 240ms; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
         .item:last-child { border-bottom: none; }
-        .item:hover { background: rgba(255,255,255,0.03); }
-        .item.done { opacity: 0.4; }
+        .item:hover { background: rgba(255,255,255,0.25); }
+        .item.done { opacity: 0.45; }
         .item-left { display: flex; align-items: center; gap: 14px; min-width: 0; }
         .avatar {
-            width: 34px; height: 34px; border-radius: 999px; background: var(--indigo); color: white;
-            display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;
+            width: 36px; height: 36px; border-radius: 999px;
+            background: linear-gradient(135deg, #F9A8D4, #C4B5FD); color: #3F3D56;
+            display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0;
         }
-        .task-name { font-weight: 600; font-size: 14px; margin-bottom: 5px; }
+        .task-name { font-weight: 700; font-size: 14px; margin-bottom: 5px; color: #4C1D95; }
         .meta-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .meta-pill { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--muted); }
-        .priority-pill { padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; }
-        .priority-high { background: rgba(239, 68, 68, 0.15); color: #F87171; }
-        .priority-medium { background: rgba(245, 158, 11, 0.15); color: #FBBF24; }
-        .priority-low { background: rgba(107, 114, 128, 0.2); color: #9CA3AF; }
+        .priority-pill { padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+        .priority-high { background: rgba(249, 113, 143, 0.2); color: #DB2777; }
+        .priority-medium { background: rgba(253, 186, 116, 0.25); color: #C2410C; }
+        .priority-low { background: rgba(167, 243, 208, 0.35); color: #047857; }
         .item-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-        .badge-status { padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap; }
-        .status-pending { background: rgba(245, 158, 11, 0.15); color: #FBBF24; }
-        .status-done { background: rgba(34, 197, 94, 0.15); color: #4ADE80; }
+        .badge-status { padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+        .status-pending { background: rgba(253, 186, 116, 0.25); color: #C2410C; }
+        .status-done { background: rgba(167, 243, 208, 0.4); color: #047857; }
         .btn-done {
-            background: transparent; border: 1px solid var(--border); color: var(--text);
-            padding: 6px 14px; font-size: 12px; font-weight: 500; border-radius: 8px;
+            background: rgba(255,255,255,0.5); border: 1px solid var(--border); color: var(--text);
+            padding: 6px 14px; font-size: 12px; font-weight: 600; border-radius: 10px;
             cursor: pointer; transition: all 300ms ease-out;
         }
-        .btn-done:hover { border-color: var(--indigo); color: var(--indigo-light); }
+        .btn-done:hover { border-color: #F9A8D4; color: #DB2777; background: rgba(255,255,255,0.8); }
         .empty-state { padding: 30px 22px; text-align: center; color: var(--muted); font-size: 13px; }
-        #toast-container { position: fixed; top: 24px; right: 24px; z-index: 999; display: flex; flex-direction: column; gap: 10px; }
+        #toast-container { position: fixed; top: 24px; right: 90px; z-index: 999; display: flex; flex-direction: column; gap: 10px; }
         .toast {
-            background: rgba(15,15,20,0.85); backdrop-filter: blur(14px); border: 1px solid var(--border);
-            border-left: 3px solid var(--indigo); border-radius: 10px; padding: 14px 18px;
-            min-width: 260px; max-width: 320px; box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+            background: rgba(255,255,255,0.75); backdrop-filter: blur(20px); border: 1px solid var(--border);
+            border-left: 4px solid #F9A8D4; border-radius: 16px; padding: 14px 18px;
+            min-width: 260px; max-width: 320px; box-shadow: 0 10px 30px rgba(196,181,253,0.3);
             animation: slideIn 350ms ease-out, fadeOut 400ms ease-in 4.6s forwards;
         }
-        .toast-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+        .toast-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; color: #4C1D95; }
         .toast-body { font-size: 12px; color: var(--muted); }
         @keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
         @keyframes fadeOut { to { opacity: 0; transform: translateX(20px); } }
-        .layout { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+
+        .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
         @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+        .left-panel { position: sticky; top: 40px; }
+
+        .notif-bell {
+            position: fixed; top: 24px; right: 24px; z-index: 1000;
+            width: 48px; height: 48px; border-radius: 50%;
+            background: var(--card); backdrop-filter: blur(20px); border: 1px solid var(--border);
+            box-shadow: 0 8px 24px rgba(196,181,253,0.35);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; cursor: pointer; transition: transform 200ms ease-out;
+        }
+        .notif-bell:hover { transform: scale(1.08); }
+        .notif-badge {
+            position: absolute; top: -4px; right: -4px; background: #F9718F; color: #fff;
+            font-size: 10px; font-weight: 700; min-width: 18px; height: 18px; border-radius: 999px;
+            align-items: center; justify-content: center; padding: 0 4px; display: none;
+        }
+        .drawer-overlay {
+            position: fixed; inset: 0; background: rgba(63,61,86,0.15);
+            opacity: 0; pointer-events: none; transition: opacity 250ms ease-out; z-index: 998;
+        }
+        .drawer-overlay.open { opacity: 1; pointer-events: auto; }
+        .activity-drawer {
+            position: fixed; top: 0; right: 0; height: 100%; width: 360px; max-width: 88vw;
+            background: rgba(255,255,255,0.6); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border-left: 1px solid var(--border); box-shadow: -10px 0 40px rgba(196,181,253,0.3);
+            padding: 24px; z-index: 999; overflow-y: auto;
+            transform: translateX(100%); transition: transform 320ms ease-out;
+        }
+        .activity-drawer.open { transform: translateX(0); }
+        .drawer-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+        .drawer-close {
+            background: none; border: none; font-size: 18px; color: var(--muted); cursor: pointer;
+            width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        }
+        .drawer-close:hover { background: rgba(255,255,255,0.6); color: #DB2777; }
+
         .status-dot {
-            width: 8px; height: 8px; border-radius: 50%; background: #4ADE80;
+            width: 9px; height: 9px; border-radius: 50%; background: #34D399;
             display: inline-block; margin-right: 6px; animation: pulse 2s ease-in-out infinite;
         }
         @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.5); }
-            50% { box-shadow: 0 0 0 6px rgba(74,222,128,0); }
+            0%, 100% { box-shadow: 0 0 0 0 rgba(52,211,153,0.5); }
+            50% { box-shadow: 0 0 0 7px rgba(52,211,153,0); }
         }
-        .agent-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
         .agent-status { font-size: 12px; color: var(--muted); display: flex; align-items: center; }
-        .sidebar { position: sticky; top: 24px; }
-        .log-entry { padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 12px; animation: fadeInUp 400ms ease-out backwards; }
+        .log-entry { padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 12px; animation: fadeInUp 400ms ease-out backwards; color: var(--text); }
         .log-entry:last-child { border-bottom: none; }
-        .log-time { color: #6B7280; font-size: 10px; margin-top: 3px; }
-        .log-reminder { border-left: 2px solid #F59E0B; }
-        .log-system { border-left: 2px solid var(--indigo); }
+        .log-time { color: #A8A5C4; font-size: 10px; margin-top: 3px; }
+        .log-reminder { border-left: 3px solid var(--peach); }
+        .log-system { border-left: 3px solid var(--lavender); }
         .btn-ghost {
-            background: transparent; border: 1px dashed var(--border); color: var(--muted);
-            padding: 8px 14px; font-size: 12px; border-radius: 8px; cursor: pointer;
-            transition: all 300ms ease-out; margin-top: 12px; width: 100%;
+            background: rgba(255,255,255,0.4); border: 1px dashed var(--border); color: var(--muted);
+            padding: 9px 14px; font-size: 12px; border-radius: 12px; cursor: pointer;
+            transition: all 300ms ease-out; margin-top: 12px; width: 100%; font-weight: 600;
         }
-        .btn-ghost:hover { border-color: var(--indigo); color: var(--indigo-light); }
+        .btn-ghost:hover { border-color: #F9A8D4; color: #DB2777; background: rgba(255,255,255,0.7); }
         .section-label {
-            font-size: 12px; font-weight: 700; color: var(--muted);
+            font-size: 12px; font-weight: 700; color: #A855F7;
             text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0;
         }
     </style>
@@ -158,40 +198,60 @@
     <div class="blob blob3"></div>
     <div id="toast-container"></div>
 
+    <button class="notif-bell" id="notifBell" onclick="toggleActivityDrawer()">
+        🔔
+        <span class="notif-badge" id="notifBadge">0</span>
+    </button>
+
+    <div class="drawer-overlay" id="drawerOverlay" onclick="closeActivityDrawer()"></div>
+
+    <div class="activity-drawer" id="activityDrawer">
+        <div class="drawer-header">
+            <span class="section-label">Agent Activity</span>
+            <button class="drawer-close" onclick="closeActivityDrawer()">✕</button>
+        </div>
+        <div class="agent-status"><span class="status-dot"></span> Monitoring live</div>
+        <div id="activity-log" style="margin-top: 14px;"></div>
+        <button class="btn-ghost" onclick="forceExpire()">⚡ Demo: Trigger Overdue Check</button>
+    </div>
+
     <div class="container">
-        <span class="badge">Agentic AI Framework</span>
-        <h1>Never Let an Action Item<br>Fall Through the Cracks.</h1>
-        <p class="subhead">
-            Meetings generate crucial decisions, but the moment the call ends, execution stops.
-            FollowThru captures the transcript, extracts decisions, assigns owners, and autonomously
-            chases down execution until every item is closed.
-        </p>
-
-        <div class="glass input-card">
-            <textarea id="transcript" placeholder="Paste your meeting transcript here..."></textarea>
-            <div class="input-footer">
-                <button class="btn-extract" onclick="extractItems()">✨ Extract Action Items</button>
-            </div>
-        </div>
-        <div id="status"></div>
-
-        <div class="stats-row">
-            <div class="glass stat-chip">
-                <div class="stat-num">{{ items|length }}</div>
-                <div class="stat-label">Total Items</div>
-            </div>
-            <div class="glass stat-chip">
-                <div class="stat-num">{{ items|selectattr('status','equalto','pending')|list|length }}</div>
-                <div class="stat-label">Pending</div>
-            </div>
-            <div class="glass stat-chip">
-                <div class="stat-num">{{ items|selectattr('status','equalto','done')|list|length }}</div>
-                <div class="stat-label">Completed</div>
-            </div>
-        </div>
-
         <div class="layout">
-            <div>
+
+            <div class="left-panel">
+                <span class="badge">Agentic AI Framework</span>
+                <h1>Never Let an Action Item<br>Fall Through the Cracks.</h1>
+                <p class="subhead">
+                    Meetings generate crucial decisions, but the moment the call ends, execution stops.
+                    FollowThru captures the transcript, extracts decisions, assigns owners, and autonomously
+                    chases down execution until every item is closed.
+                </p>
+
+                <div class="glass input-card">
+                    <textarea id="transcript" placeholder="Paste your meeting transcript here..."></textarea>
+                    <div class="input-footer">
+                        <button class="btn-extract" onclick="extractItems()">✨ Extract Action Items</button>
+                    </div>
+                </div>
+                <div id="status"></div>
+
+                <div class="stats-row">
+                    <div class="glass stat-chip">
+                        <div class="stat-num">{{ items|length }}</div>
+                        <div class="stat-label">Total Items</div>
+                    </div>
+                    <div class="glass stat-chip">
+                        <div class="stat-num">{{ items|selectattr('status','equalto','pending')|list|length }}</div>
+                        <div class="stat-label">Pending</div>
+                    </div>
+                    <div class="glass stat-chip">
+                        <div class="stat-num">{{ items|selectattr('status','equalto','done')|list|length }}</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-panel">
                 {% set categories = [('meeting', '📅', 'Meetings'), ('email', '📧', 'Emails'), ('todo', '✅', 'To-Dos')] %}
                 {% for cat_key, cat_icon, cat_label in categories %}
                 {% set cat_items = items|selectattr('category','equalto',cat_key)|list %}
@@ -228,20 +288,10 @@
                 {% endfor %}
 
                 {% if items|length == 0 %}
-                <div class="glass feed-card"><div class="empty-state">No items yet — paste a transcript above to get started.</div></div>
+                <div class="glass feed-card"><div class="empty-state">No items yet — paste a transcript on the left to get started.</div></div>
                 {% endif %}
             </div>
 
-            <div class="sidebar">
-                <div class="glass" style="padding: 18px;">
-                    <div class="agent-header">
-                        <span class="section-label">Agent Activity</span>
-                    </div>
-                    <div class="agent-status"><span class="status-dot"></span> Monitoring live</div>
-                    <div id="activity-log" style="margin-top: 14px;"></div>
-                    <button class="btn-ghost" onclick="forceExpire()">⚡ Demo: Trigger Overdue Check</button>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -267,6 +317,8 @@
         }
 
         let lastLogCount = 0;
+        let unreadCount = 0;
+
         async function loadActivity() {
             const res = await fetch('/activity');
             const data = await res.json();
@@ -276,13 +328,43 @@
                     ${entry.message}
                     <div class="log-time">${new Date(entry.timestamp).toLocaleTimeString()}</div>
                 </div>
-            `).join('') || '<div class="log-entry" style="color:#6B7280;">No activity yet.</div>';
+            `).join('') || '<div class="log-entry" style="color:#A8A5C4;">No activity yet.</div>';
 
             if (data.log.length > lastLogCount && lastLogCount !== 0) {
                 const newest = data.log[0];
                 if (newest.type === 'reminder') showToast('⏰ Reminder Sent', newest.message);
+                if (!document.getElementById('activityDrawer').classList.contains('open')) {
+                    unreadCount += (data.log.length - lastLogCount);
+                    updateBadge();
+                }
             }
             lastLogCount = data.log.length;
+        }
+
+        function updateBadge() {
+            const badge = document.getElementById('notifBadge');
+            if (unreadCount > 0) {
+                badge.textContent = unreadCount > 9 ? '9+' : unreadCount;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        function toggleActivityDrawer() {
+            const drawer = document.getElementById('activityDrawer');
+            const overlay = document.getElementById('drawerOverlay');
+            drawer.classList.toggle('open');
+            overlay.classList.toggle('open');
+            if (drawer.classList.contains('open')) {
+                unreadCount = 0;
+                updateBadge();
+            }
+        }
+
+        function closeActivityDrawer() {
+            document.getElementById('activityDrawer').classList.remove('open');
+            document.getElementById('drawerOverlay').classList.remove('open');
         }
 
         async function forceExpire() {
