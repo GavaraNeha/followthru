@@ -2,53 +2,304 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>FollowThru</title>
+    <title>FollowThru — Agentic AI Meeting Follow-Up</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #0f1117; color: #e5e7eb; margin: 0; padding: 2rem; }
-        h1 { color: #6366f1; }
-        .subtitle { color: #9ca3af; margin-bottom: 2rem; }
-        textarea { width: 100%; height: 150px; background: #1a1d27; color: #e5e7eb; border: 1px solid #2d3140; border-radius: 8px; padding: 1rem; font-size: 0.95rem; box-sizing: border-box; }
-        button { background: #6366f1; color: white; border: none; padding: 0.7rem 1.5rem; border-radius: 6px; cursor: pointer; font-size: 1rem; margin-top: 1rem; }
-        button:hover { background: #4f46e5; }
-        .item { background: #1a1d27; border-radius: 8px; padding: 1rem; margin-top: 1rem; border-left: 4px solid #6366f1; }
-        .item.done { opacity: 0.5; border-left-color: #22c55e; }
-        .meta { color: #9ca3af; font-size: 0.85rem; margin-top: 0.3rem; }
-        .priority-high { color: #ef4444; font-weight: bold; }
-        .priority-medium { color: #f59e0b; }
-        .priority-low { color: #6b7280; }
-        #status { margin-top: 1rem; color: #9ca3af; }
+        :root {
+            --indigo: #4F46E5;
+            --indigo-light: #818CF8;
+            --border: #27272A;
+            --bg: #000000;
+            --card: #0B0F19;
+            --text: #F9FAFB;
+            --muted: #9CA3AF;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 96px 24px; }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--indigo-light);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+        }
+        h1 {
+            font-size: 44px;
+            font-weight: 800;
+            line-height: 1.15;
+            margin: 0 0 16px 0;
+            letter-spacing: -0.02em;
+        }
+        .subhead {
+            color: var(--muted);
+            font-size: 17px;
+            line-height: 1.6;
+            max-width: 620px;
+            margin-bottom: 48px;
+        }
+
+        .input-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+            transition: border-color 300ms ease-out, box-shadow 300ms ease-out;
+        }
+        .input-card:focus-within {
+            border-color: var(--indigo);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+        }
+        textarea {
+            width: 100%;
+            height: 130px;
+            background: transparent;
+            color: var(--text);
+            border: none;
+            padding: 0 0 16px 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            resize: vertical;
+        }
+        textarea:focus { outline: none; }
+        textarea::placeholder { color: #52525B; }
+
+        .input-footer {
+            display: flex;
+            justify-content: flex-end;
+            border-top: 1px solid var(--border);
+            padding-top: 16px;
+        }
+
+        .btn-extract {
+            background: #FFFFFF;
+            color: #000000;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 300ms ease-out;
+        }
+        .btn-extract:hover { background: #E4E4E7; transform: translateY(-1px); }
+
+        #status { color: var(--muted); font-size: 13px; margin-bottom: 32px; }
+
+        /* Live stats strip */
+        .stats-row { display: flex; gap: 12px; margin-bottom: 32px; }
+        .stat-chip {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 18px;
+            flex: 1;
+        }
+        .stat-num { font-size: 22px; font-weight: 800; }
+        .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 16px;
+        }
+
+        .feed-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            transition: background 300ms ease-out;
+            animation: fadeInUp 400ms ease-out backwards;
+        }
+        .item:nth-child(1) { animation-delay: 0ms; }
+        .item:nth-child(2) { animation-delay: 80ms; }
+        .item:nth-child(3) { animation-delay: 160ms; }
+        .item:nth-child(4) { animation-delay: 240ms; }
+        .item:nth-child(5) { animation-delay: 320ms; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .item:last-child { border-bottom: none; }
+        .item:hover { background: rgba(255,255,255,0.02); }
+        .item.done { opacity: 0.4; }
+
+        .item-left { display: flex; align-items: center; gap: 14px; min-width: 0; }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 999px;
+            background: var(--indigo);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .task-name { font-weight: 600; font-size: 14px; margin-bottom: 5px; }
+        .meta-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .meta-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .priority-pill {
+            padding: 3px 9px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .priority-high { background: rgba(239, 68, 68, 0.12); color: #F87171; }
+        .priority-medium { background: rgba(245, 158, 11, 0.12); color: #FBBF24; }
+        .priority-low { background: rgba(107, 114, 128, 0.15); color: #9CA3AF; }
+
+        .item-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+
+        .badge-status {
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .status-pending { background: rgba(245, 158, 11, 0.12); color: #FBBF24; }
+        .status-done { background: rgba(34, 197, 94, 0.12); color: #4ADE80; }
+
+        .btn-done {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 300ms ease-out;
+        }
+        .btn-done:hover { border-color: var(--indigo); color: var(--indigo-light); }
+
+        .tracked-section { margin-top: 24px; }
+        .empty-state { padding: 40px 24px; text-align: center; color: var(--muted); font-size: 14px; }
     </style>
 </head>
 <body>
-    <h1>FollowThru</h1>
-    <p class="subtitle">Turn meeting transcripts into tracked, followed-up action items.</p>
+    <div class="container">
+        <span class="badge">Agentic AI Framework</span>
+        <h1>Never Let an Action Item<br>Fall Through the Cracks.</h1>
+        <p class="subhead">
+            Meetings generate crucial decisions, but the moment the call ends, execution stops.
+            FollowThru captures the transcript, extracts decisions, assigns owners, and autonomously
+            chases down execution until every item is closed.
+        </p>
 
-    <textarea id="transcript" placeholder="Paste your meeting transcript here..."></textarea>
-    <br>
-    <button onclick="extractItems()">Extract Action Items</button>
-    <div id="status"></div>
-
-    <div id="items">
-        {% for item in items %}
-        <div class="item {{ 'done' if item.status == 'done' else '' }}" data-id="{{ item.id }}">
-            <strong>{{ item.task }}</strong>
-            <div class="meta">
-                Owner: {{ item.owner }} | Deadline: {{ item.deadline }} |
-                <span class="priority-{{ item.priority }}">{{ item.priority|upper }}</span>
+        <div class="input-card">
+            <textarea id="transcript" placeholder="Paste your meeting transcript here..."></textarea>
+            <div class="input-footer">
+                <button class="btn-extract" onclick="extractItems()">
+                    ✨ Extract Action Items
+                </button>
             </div>
-            {% if item.status != 'done' %}
-            <button onclick="markDone({{ item.id }})">Mark Done</button>
-            {% endif %}
         </div>
-        {% endfor %}
+        <div id="status"></div>
+
+        <div class="stats-row">
+            <div class="stat-chip">
+                <div class="stat-num">{{ items|length }}</div>
+                <div class="stat-label">Total Items</div>
+            </div>
+            <div class="stat-chip">
+                <div class="stat-num">{{ items|selectattr('status','equalto','pending')|list|length }}</div>
+                <div class="stat-label">Pending</div>
+            </div>
+            <div class="stat-chip">
+                <div class="stat-num">{{ items|selectattr('status','equalto','done')|list|length }}</div>
+                <div class="stat-label">Completed</div>
+            </div>
+        </div>
+
+        <div class="tracked-section">
+            <div class="section-label">Tracked Items</div>
+            <div class="feed-card">
+                <div id="items">
+                    {% for item in items %}
+                    <div class="item {{ 'done' if item.status == 'done' else '' }}" data-id="{{ item.id }}">
+                        <div class="item-left">
+                            <div class="avatar">{{ item.owner[:2].upper() if item.owner != 'Unassigned' else '??' }}</div>
+                            <div>
+                                <div class="task-name">{{ item.task }}</div>
+                                <div class="meta-row">
+                                    <span class="meta-pill">{{ item.owner }}</span>
+                                    <span class="meta-pill">📅 {{ item.deadline_text if item.deadline_text else item.deadline }}</span>
+                                    <span class="priority-pill priority-{{ item.priority }}">{{ item.priority|upper }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-right">
+                            {% if item.status == 'done' %}
+                                <span class="badge-status status-done">Complete</span>
+                            {% else %}
+                                <span class="badge-status status-pending">Awaiting Reply</span>
+                                <button class="btn-done" data-id="{{ item.id }}">Mark Done</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="empty-state">No items yet — paste a transcript above to get started.</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            document.querySelectorAll('.btn-done').forEach(function(btn){
+                btn.addEventListener('click', function(){
+                    var id = this.getAttribute('data-id');
+                    if(id) markDone(id);
+                });
+            });
+        });
         async function extractItems() {
             const transcript = document.getElementById('transcript').value;
             const status = document.getElementById('status');
             if (!transcript.trim()) { status.textContent = "Paste a transcript first."; return; }
-            status.textContent = "Extracting action items...";
+            status.textContent = "Agent extracting action items...";
             const res = await fetch('/extract', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
