@@ -1,20 +1,65 @@
 [
   {
-    "task": "Finalize the vendor contract",
-    "owner": "Sarah",
-    "deadline": "Friday",
-    "priority": "high",
+    "task": "Attend and participate in the GDTA D.Conference 2026",
+    "owner": "Unassigned",
+    "deadline_text": "29 & 30 September 2026",
+    "priority": "medium",
+    "deadline_date": "2026-07-26T17:08:25.098859",
     "id": 1,
-    "status": "done",
-    "created_at": "2026-07-25T12:07:13.385116"
+    "status": "pending",
+    "created_at": "2026-07-26T16:35:26.935596",
+    "last_reminded": "2026-07-26T17:09:25.102778",
+    "reminder_count": 1
   },
   {
-    "task": "Update the budget sheet",
-    "owner": "Mike",
-    "deadline": "Next week",
+    "task": "Visit www.gdta2026.com for more details",
+    "owner": "Unassigned",
+    "deadline_text": "No deadline specified",
     "priority": "low",
+    "deadline_date": "2026-07-26T17:08:25.098917",
     "id": 2,
-    "status": "done",
-    "created_at": "2026-07-25T12:07:13.385136"
+    "status": "pending",
+    "created_at": "2026-07-26T16:35:26.935606",
+    "last_reminded": "2026-07-26T17:09:25.102778",
+    "reminder_count": 1
+  },
+  {
+    "task": "Attend GDTA D.Conference 2026",
+    "owner": "Unassigned",
+    "deadline_text": "29 & 30 September 2026",
+    "priority": "medium",
+    "category": "meeting",
+    "deadline_date": "2026-07-26T17:08:25.098931",
+    "id": 3,
+    "status": "pending",
+    "created_at": "2026-07-26T16:39:39.114875",
+    "last_reminded": "2026-07-26T17:09:25.102778",
+    "reminder_count": 1
+  },
+  {
+    "task": "Visit the website www.gdta2026.com for more details",
+    "owner": "Unassigned",
+    "deadline_text": "No deadline specified",
+    "priority": "low",
+    "category": "todo",
+    "deadline_date": "2026-07-26T17:08:25.098939",
+    "id": 4,
+    "status": "pending",
+    "created_at": "2026-07-26T16:39:39.114905",
+    "last_reminded": "2026-07-26T17:09:25.102778",
+    "reminder_count": 1
+  },
+  {
+    "task": "Join the Grand Launch Session of TVS Credit E.P.I.C 8.0",
+    "owner": "Gavara Neha",
+    "deadline_text": "24th July 2026, 6:00 PM onwards",
+    "priority": "high",
+    "category": "meeting",
+    "deadline_date": "2026-07-26T17:08:25.098947",
+    "id": 5,
+    "status": "pending",
+    "created_at": "2026-07-26T17:08:17.404449",
+    "last_reminded": "2026-07-26T17:09:25.102778",
+    "reminder_count": 1
   }
 ]

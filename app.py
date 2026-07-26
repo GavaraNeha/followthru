@@ -2,7 +2,8 @@ from flask import Flask, render_template, request, jsonify
 from extractor import extract_action_items
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
+from scheduler import start_scheduler, load_log, check_overdue_items
 
 app = Flask(__name__)
 DATA_FILE = "data/items.json"
@@ -50,5 +51,26 @@ def complete_item(item_id):
     save_items(items)
     return jsonify({"success": True})
 
+@app.route("/activity")
+def activity():
+    return jsonify({"log": load_log()[::-1]})
+
+@app.route("/force-check", methods=["POST"])
+def force_check():
+    check_overdue_items()
+    return jsonify({"success": True})
+
+@app.route("/debug/expire-all", methods=["POST"])
+def debug_expire_all():
+    items = load_items()
+    for item in items:
+        if item["status"] == "pending":
+            item["deadline_date"] = (datetime.now() - timedelta(minutes=1)).isoformat()
+    save_items(items)
+    check_overdue_items()
+    return jsonify({"success": True})
+
 if __name__ == "__main__":
+    if os.environ.get("WERKZEUG_RUN_MAIN") == "true":
+        start_scheduler()
     app.run(debug=True)

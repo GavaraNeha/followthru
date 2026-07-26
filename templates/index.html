@@ -9,215 +9,155 @@
         :root {
             --indigo: #4F46E5;
             --indigo-light: #818CF8;
-            --border: #27272A;
-            --bg: #000000;
-            --card: #0B0F19;
+            --border: rgba(255,255,255,0.08);
+            --card: rgba(255,255,255,0.03);
             --text: #F9FAFB;
             --muted: #9CA3AF;
         }
         * { box-sizing: border-box; }
+        html, body { height: 100%; }
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--bg);
+            background: #000000;
             color: var(--text);
             margin: 0;
+            overflow-x: hidden;
+            position: relative;
         }
-        .container { max-width: 900px; margin: 0 auto; padding: 96px 24px; }
-
+        .blob {
+            position: fixed; border-radius: 50%; filter: blur(90px);
+            opacity: 0.25; z-index: 0; animation: float 14s ease-in-out infinite;
+        }
+        .blob1 { width: 420px; height: 420px; background: #4F46E5; top: -100px; left: -100px; }
+        .blob2 { width: 380px; height: 380px; background: #7C3AED; bottom: -120px; right: -80px; animation-delay: -6s; }
+        .blob3 { width: 300px; height: 300px; background: #2563EB; top: 40%; right: 20%; animation-delay: -3s; }
+        @keyframes float {
+            0%, 100% { transform: translate(0,0) scale(1); }
+            50% { transform: translate(30px, -20px) scale(1.08); }
+        }
+        .container { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 96px 24px; }
         .badge {
-            display: inline-block;
-            padding: 6px 14px;
-            border: 1px solid var(--border);
-            border-radius: 999px;
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--indigo-light);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 28px;
+            display: inline-block; padding: 6px 14px; border: 1px solid var(--border);
+            background: rgba(79,70,229,0.08); backdrop-filter: blur(10px); border-radius: 999px;
+            font-size: 11px; font-weight: 700; color: var(--indigo-light);
+            letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 28px;
         }
-        h1 {
-            font-size: 44px;
-            font-weight: 800;
-            line-height: 1.15;
-            margin: 0 0 16px 0;
-            letter-spacing: -0.02em;
+        h1 { font-size: 44px; font-weight: 800; line-height: 1.15; margin: 0 0 16px 0; letter-spacing: -0.02em; }
+        .subhead { color: var(--muted); font-size: 17px; line-height: 1.6; max-width: 620px; margin-bottom: 48px; }
+        .glass {
+            background: var(--card); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border); border-radius: 14px;
         }
-        .subhead {
-            color: var(--muted);
-            font-size: 17px;
-            line-height: 1.6;
-            max-width: 620px;
-            margin-bottom: 48px;
-        }
-
-        .input-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 32px;
-            transition: border-color 300ms ease-out, box-shadow 300ms ease-out;
-        }
-        .input-card:focus-within {
-            border-color: var(--indigo);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
-        }
+        .input-card { padding: 24px; margin-bottom: 32px; transition: border-color 300ms ease-out, box-shadow 300ms ease-out; }
+        .input-card:focus-within { border-color: var(--indigo); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15); }
         textarea {
-            width: 100%;
-            height: 130px;
-            background: transparent;
-            color: var(--text);
-            border: none;
-            padding: 0 0 16px 0;
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            resize: vertical;
+            width: 100%; height: 130px; background: transparent; color: var(--text); border: none;
+            padding: 0 0 16px 0; font-family: 'Inter', sans-serif; font-size: 14px; resize: vertical;
         }
         textarea:focus { outline: none; }
-        textarea::placeholder { color: #52525B; }
-
-        .input-footer {
-            display: flex;
-            justify-content: flex-end;
-            border-top: 1px solid var(--border);
-            padding-top: 16px;
-        }
-
+        textarea::placeholder { color: #6B7280; }
+        .input-footer { display: flex; justify-content: flex-end; border-top: 1px solid var(--border); padding-top: 16px; }
         .btn-extract {
-            background: #FFFFFF;
-            color: #000000;
-            border: none;
-            border-radius: 10px;
-            padding: 10px 20px;
-            font-size: 14px;
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 300ms ease-out;
+            background: #FFFFFF; color: #000000; border: none; border-radius: 10px; padding: 10px 20px;
+            font-size: 14px; font-weight: 600; font-family: 'Inter', sans-serif; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 8px; transition: all 300ms ease-out;
         }
         .btn-extract:hover { background: #E4E4E7; transform: translateY(-1px); }
-
         #status { color: var(--muted); font-size: 13px; margin-bottom: 32px; }
-
-        /* Live stats strip */
         .stats-row { display: flex; gap: 12px; margin-bottom: 32px; }
-        .stat-chip {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 14px 18px;
-            flex: 1;
-        }
+        .stat-chip { padding: 14px 18px; flex: 1; }
         .stat-num { font-size: 22px; font-weight: 800; }
         .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
-
-        .section-label {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 16px;
+        .category-section { margin-bottom: 36px; }
+        .category-header {
+            display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700;
+            color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px;
         }
-
-        .feed-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-        }
+        .category-icon { font-size: 15px; }
+        .feed-card { overflow: hidden; }
         .item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 24px;
-            border-bottom: 1px solid var(--border);
-            transition: background 300ms ease-out;
+            display: flex; align-items: center; justify-content: space-between; padding: 18px 22px;
+            border-bottom: 1px solid var(--border); transition: background 300ms ease-out;
             animation: fadeInUp 400ms ease-out backwards;
         }
         .item:nth-child(1) { animation-delay: 0ms; }
         .item:nth-child(2) { animation-delay: 80ms; }
         .item:nth-child(3) { animation-delay: 160ms; }
         .item:nth-child(4) { animation-delay: 240ms; }
-        .item:nth-child(5) { animation-delay: 320ms; }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
         .item:last-child { border-bottom: none; }
-        .item:hover { background: rgba(255,255,255,0.02); }
+        .item:hover { background: rgba(255,255,255,0.03); }
         .item.done { opacity: 0.4; }
-
         .item-left { display: flex; align-items: center; gap: 14px; min-width: 0; }
-
         .avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 999px;
-            background: var(--indigo);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 700;
-            flex-shrink: 0;
+            width: 34px; height: 34px; border-radius: 999px; background: var(--indigo); color: white;
+            display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;
         }
-
         .task-name { font-weight: 600; font-size: 14px; margin-bottom: 5px; }
         .meta-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-        .meta-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 12px;
-            color: var(--muted);
-        }
-
-        .priority-pill {
-            padding: 3px 9px;
-            border-radius: 999px;
-            font-size: 11px;
-            font-weight: 700;
-        }
-        .priority-high { background: rgba(239, 68, 68, 0.12); color: #F87171; }
-        .priority-medium { background: rgba(245, 158, 11, 0.12); color: #FBBF24; }
-        .priority-low { background: rgba(107, 114, 128, 0.15); color: #9CA3AF; }
-
+        .meta-pill { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--muted); }
+        .priority-pill { padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+        .priority-high { background: rgba(239, 68, 68, 0.15); color: #F87171; }
+        .priority-medium { background: rgba(245, 158, 11, 0.15); color: #FBBF24; }
+        .priority-low { background: rgba(107, 114, 128, 0.2); color: #9CA3AF; }
         .item-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-
-        .badge-status {
-            padding: 4px 10px;
-            border-radius: 999px;
-            font-size: 11px;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-        .status-pending { background: rgba(245, 158, 11, 0.12); color: #FBBF24; }
-        .status-done { background: rgba(34, 197, 94, 0.12); color: #4ADE80; }
-
+        .badge-status { padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+        .status-pending { background: rgba(245, 158, 11, 0.15); color: #FBBF24; }
+        .status-done { background: rgba(34, 197, 94, 0.15); color: #4ADE80; }
         .btn-done {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 6px 14px;
-            font-size: 12px;
-            font-weight: 500;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 300ms ease-out;
+            background: transparent; border: 1px solid var(--border); color: var(--text);
+            padding: 6px 14px; font-size: 12px; font-weight: 500; border-radius: 8px;
+            cursor: pointer; transition: all 300ms ease-out;
         }
         .btn-done:hover { border-color: var(--indigo); color: var(--indigo-light); }
-
-        .tracked-section { margin-top: 24px; }
-        .empty-state { padding: 40px 24px; text-align: center; color: var(--muted); font-size: 14px; }
+        .empty-state { padding: 30px 22px; text-align: center; color: var(--muted); font-size: 13px; }
+        #toast-container { position: fixed; top: 24px; right: 24px; z-index: 999; display: flex; flex-direction: column; gap: 10px; }
+        .toast {
+            background: rgba(15,15,20,0.85); backdrop-filter: blur(14px); border: 1px solid var(--border);
+            border-left: 3px solid var(--indigo); border-radius: 10px; padding: 14px 18px;
+            min-width: 260px; max-width: 320px; box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+            animation: slideIn 350ms ease-out, fadeOut 400ms ease-in 4.6s forwards;
+        }
+        .toast-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+        .toast-body { font-size: 12px; color: var(--muted); }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes fadeOut { to { opacity: 0; transform: translateX(20px); } }
+        .layout { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+        @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+        .status-dot {
+            width: 8px; height: 8px; border-radius: 50%; background: #4ADE80;
+            display: inline-block; margin-right: 6px; animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.5); }
+            50% { box-shadow: 0 0 0 6px rgba(74,222,128,0); }
+        }
+        .agent-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+        .agent-status { font-size: 12px; color: var(--muted); display: flex; align-items: center; }
+        .sidebar { position: sticky; top: 24px; }
+        .log-entry { padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 12px; animation: fadeInUp 400ms ease-out backwards; }
+        .log-entry:last-child { border-bottom: none; }
+        .log-time { color: #6B7280; font-size: 10px; margin-top: 3px; }
+        .log-reminder { border-left: 2px solid #F59E0B; }
+        .log-system { border-left: 2px solid var(--indigo); }
+        .btn-ghost {
+            background: transparent; border: 1px dashed var(--border); color: var(--muted);
+            padding: 8px 14px; font-size: 12px; border-radius: 8px; cursor: pointer;
+            transition: all 300ms ease-out; margin-top: 12px; width: 100%;
+        }
+        .btn-ghost:hover { border-color: var(--indigo); color: var(--indigo-light); }
+        .section-label {
+            font-size: 12px; font-weight: 700; color: var(--muted);
+            text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0;
+        }
     </style>
 </head>
 <body>
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+    <div id="toast-container"></div>
+
     <div class="container">
         <span class="badge">Agentic AI Framework</span>
         <h1>Never Let an Action Item<br>Fall Through the Cracks.</h1>
@@ -227,60 +167,79 @@
             chases down execution until every item is closed.
         </p>
 
-        <div class="input-card">
+        <div class="glass input-card">
             <textarea id="transcript" placeholder="Paste your meeting transcript here..."></textarea>
             <div class="input-footer">
-                <button class="btn-extract" onclick="extractItems()">
-                    ✨ Extract Action Items
-                </button>
+                <button class="btn-extract" onclick="extractItems()">✨ Extract Action Items</button>
             </div>
         </div>
         <div id="status"></div>
 
         <div class="stats-row">
-            <div class="stat-chip">
+            <div class="glass stat-chip">
                 <div class="stat-num">{{ items|length }}</div>
                 <div class="stat-label">Total Items</div>
             </div>
-            <div class="stat-chip">
+            <div class="glass stat-chip">
                 <div class="stat-num">{{ items|selectattr('status','equalto','pending')|list|length }}</div>
                 <div class="stat-label">Pending</div>
             </div>
-            <div class="stat-chip">
+            <div class="glass stat-chip">
                 <div class="stat-num">{{ items|selectattr('status','equalto','done')|list|length }}</div>
                 <div class="stat-label">Completed</div>
             </div>
         </div>
 
-        <div class="tracked-section">
-            <div class="section-label">Tracked Items</div>
-            <div class="feed-card">
-                <div id="items">
-                    {% for item in items %}
-                    <div class="item {{ 'done' if item.status == 'done' else '' }}" data-id="{{ item.id }}">
-                        <div class="item-left">
-                            <div class="avatar">{{ item.owner[:2].upper() if item.owner != 'Unassigned' else '??' }}</div>
-                            <div>
-                                <div class="task-name">{{ item.task }}</div>
-                                <div class="meta-row">
-                                    <span class="meta-pill">{{ item.owner }}</span>
-                                    <span class="meta-pill">📅 {{ item.deadline_text if item.deadline_text else item.deadline }}</span>
-                                    <span class="priority-pill priority-{{ item.priority }}">{{ item.priority|upper }}</span>
+        <div class="layout">
+            <div>
+                {% set categories = [('meeting', '📅', 'Meetings'), ('email', '📧', 'Emails'), ('todo', '✅', 'To-Dos')] %}
+                {% for cat_key, cat_icon, cat_label in categories %}
+                {% set cat_items = items|selectattr('category','equalto',cat_key)|list %}
+                {% if cat_items %}
+                <div class="category-section">
+                    <div class="category-header"><span class="category-icon">{{ cat_icon }}</span> {{ cat_label }} ({{ cat_items|length }})</div>
+                    <div class="glass feed-card">
+                        {% for item in cat_items %}
+                        <div class="item {{ 'done' if item.status == 'done' else '' }}" data-id="{{ item.id }}">
+                            <div class="item-left">
+                                <div class="avatar">{{ item.owner[:2].upper() if item.owner != 'Unassigned' else '??' }}</div>
+                                <div>
+                                    <div class="task-name">{{ item.task }}</div>
+                                    <div class="meta-row">
+                                        <span class="meta-pill">{{ item.owner }}</span>
+                                        <span class="meta-pill">📅 {{ item.deadline_text }}</span>
+                                        <span class="priority-pill priority-{{ item.priority }}">{{ item.priority|upper }}</span>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="item-right">
+                                {% if item.status == 'done' %}
+                                    <span class="badge-status status-done">Complete</span>
+                                {% else %}
+                                    <span class="badge-status status-pending">Awaiting Reply</span>
+                                    <button class="btn-done" data-id="{{ item.id }}">Mark Done</button>
+                                {% endif %}
+                            </div>
                         </div>
-                        <div class="item-right">
-                            {% if item.status == 'done' %}
-                                <span class="badge-status status-done">Complete</span>
-                            {% else %}
-                                <span class="badge-status status-pending">Awaiting Reply</span>
-                                <button class="btn-done" data-id="{{ item.id }}">Mark Done</button>
-                            {% endif %}
-                        </div>
+                        {% endfor %}
                     </div>
-                    {% else %}
-                    <div class="empty-state">No items yet — paste a transcript above to get started.</div>
-                    {% endfor %}
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                {% if items|length == 0 %}
+                <div class="glass feed-card"><div class="empty-state">No items yet — paste a transcript above to get started.</div></div>
+                {% endif %}
+            </div>
+
+            <div class="sidebar">
+                <div class="glass" style="padding: 18px;">
+                    <div class="agent-header">
+                        <span class="section-label">Agent Activity</span>
+                    </div>
+                    <div class="agent-status"><span class="status-dot"></span> Monitoring live</div>
+                    <div id="activity-log" style="margin-top: 14px;"></div>
+                    <button class="btn-ghost" onclick="forceExpire()">⚡ Demo: Trigger Overdue Check</button>
                 </div>
             </div>
         </div>
@@ -294,7 +253,43 @@
                     if(id) markDone(id);
                 });
             });
+            loadActivity();
+            setInterval(loadActivity, 6000);
         });
+
+        function showToast(title, body) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<div class="toast-title">${title}</div><div class="toast-body">${body}</div>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 5200);
+        }
+
+        let lastLogCount = 0;
+        async function loadActivity() {
+            const res = await fetch('/activity');
+            const data = await res.json();
+            const logDiv = document.getElementById('activity-log');
+            logDiv.innerHTML = data.log.map(entry => `
+                <div class="log-entry log-${entry.type}">
+                    ${entry.message}
+                    <div class="log-time">${new Date(entry.timestamp).toLocaleTimeString()}</div>
+                </div>
+            `).join('') || '<div class="log-entry" style="color:#6B7280;">No activity yet.</div>';
+
+            if (data.log.length > lastLogCount && lastLogCount !== 0) {
+                const newest = data.log[0];
+                if (newest.type === 'reminder') showToast('⏰ Reminder Sent', newest.message);
+            }
+            lastLogCount = data.log.length;
+        }
+
+        async function forceExpire() {
+            await fetch('/debug/expire-all', { method: 'POST' });
+            loadActivity();
+        }
+
         async function extractItems() {
             const transcript = document.getElementById('transcript').value;
             const status = document.getElementById('status');
