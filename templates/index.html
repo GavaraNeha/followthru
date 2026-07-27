@@ -45,33 +45,94 @@
             letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 28px;
         }
         h1 { font-size: 44px; font-weight: 800; line-height: 1.15; margin: 0 0 16px 0; letter-spacing: -0.02em; color: #4C1D95; }
-        .subhead { color: var(--muted); font-size: 17px; line-height: 1.6; margin-bottom: 40px; }
+        .subhead { color: var(--muted); font-size: 17px; line-height: 1.6; margin-bottom: 32px; }
         .glass {
             background: var(--card); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border); border-radius: 20px;
             box-shadow: 0 8px 32px rgba(196,181,253,0.25);
         }
+
+        /* Input tabs */
+        .tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+        .tab-btn {
+            background: rgba(255,255,255,0.3); border: 1px solid var(--border); color: var(--muted);
+            padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer;
+            font-family: 'Inter', sans-serif; transition: all 200ms ease-out;
+        }
+        .tab-btn.active { background: rgba(255,255,255,0.7); color: #A855F7; border-color: var(--pink); }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
         .input-card { padding: 24px; margin-bottom: 20px; transition: border-color 300ms ease-out, box-shadow 300ms ease-out; }
         .input-card:focus-within { border-color: var(--pink); box-shadow: 0 0 0 4px rgba(249,168,212,0.25); }
         textarea {
-            width: 100%; height: 220px; background: transparent; color: var(--text); border: none;
+            width: 100%; height: 190px; background: transparent; color: var(--text); border: none;
             padding: 0 0 16px 0; font-family: 'Inter', sans-serif; font-size: 14px; resize: vertical;
         }
         textarea:focus { outline: none; }
         textarea::placeholder { color: #A8A5C4; }
-        .input-footer { display: flex; justify-content: flex-end; border-top: 1px solid var(--border); padding-top: 16px; }
+
+        .dropzone {
+            border: 1.5px dashed var(--border); border-radius: 14px; padding: 34px 20px;
+            text-align: center; cursor: pointer; transition: all 200ms ease-out;
+        }
+        .dropzone:hover, .dropzone.drag { border-color: var(--pink); background: rgba(255,255,255,0.15); }
+        .dropzone p { margin: 0; color: var(--muted); font-size: 13.5px; }
+        .dropzone .fname { color: var(--text); font-weight: 700; margin-top: 8px; font-size: 13.5px; }
+
+        .input-footer { display: flex; justify-content: flex-end; border-top: 1px solid var(--border); padding-top: 16px; margin-top: 16px; }
         .btn-extract {
             background: linear-gradient(135deg, #F9A8D4, #C4B5FD); color: #3F3D56; border: none; border-radius: 14px; padding: 10px 22px;
             font-size: 14px; font-weight: 700; font-family: 'Inter', sans-serif; cursor: pointer;
             display: inline-flex; align-items: center; gap: 8px; transition: all 300ms ease-out;
             box-shadow: 0 4px 14px rgba(196,181,253,0.4);
         }
-        .btn-extract:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 6px 20px rgba(196,181,253,0.55); }
-        #status { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
-        .stats-row { display: flex; gap: 12px; }
-        .stat-chip { padding: 16px 18px; flex: 1; }
-        .stat-num { font-size: 24px; font-weight: 800; color: #7C3AED; }
-        .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+        .btn-extract:hover:not(:disabled) { transform: translateY(-2px) scale(1.02); box-shadow: 0 6px 20px rgba(196,181,253,0.55); }
+        .btn-extract:disabled { opacity: 0.6; cursor: progress; }
+
+        /* Processing animation */
+        .processing { display: none; padding: 16px 4px 4px; }
+        .processing.active { display: block; }
+        .proc-steps { display: flex; flex-direction: column; gap: 10px; }
+        .proc-step { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #A8A5C4; transition: color 250ms ease-out; }
+        .proc-step .ring {
+            width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--border);
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 250ms ease-out;
+        }
+        .proc-step.active { color: var(--text); }
+        .proc-step.active .ring { border-color: var(--pink); }
+        .proc-step.active .ring::after { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--pink); animation: pulseR 1s ease-in-out infinite; }
+        .proc-step.done { color: #047857; }
+        .proc-step.done .ring { border-color: #A7F3D0; }
+        @keyframes pulseR { 0%,100% { transform: scale(0.7); opacity: 0.7; } 50% { transform: scale(1); opacity: 1; } }
+
+        #status { color: var(--muted); font-size: 13px; margin: 14px 0 24px; }
+
+        .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; }
+        .stat-chip { padding: 14px 16px; }
+        .stat-num { font-size: 22px; font-weight: 800; color: #7C3AED; }
+        .stat-label { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+
+        .filter-row { display: flex; gap: 8px; margin-bottom: 20px; }
+        .filter-btn {
+            background: transparent; border: 1px solid var(--border); color: var(--muted);
+            padding: 7px 15px; border-radius: 999px; font-size: 12.5px; font-weight: 700; cursor: pointer;
+            font-family: 'Inter', sans-serif; transition: all 200ms ease-out;
+        }
+        .filter-btn:hover { border-color: var(--pink); color: #DB2777; }
+        .filter-btn.active { background: linear-gradient(135deg, #F9A8D4, #C4B5FD); border-color: transparent; color: #3F3D56; }
+
+        /* Timeline widget */
+        .timeline-card { padding: 22px; margin-bottom: 32px; }
+        .timeline-head { font-size: 12px; font-weight: 700; color: #A855F7; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
+        .timeline { position: relative; padding-left: 20px; }
+        .timeline::before { content: ""; position: absolute; left: 4px; top: 4px; bottom: 4px; width: 2px; background: linear-gradient(180deg, var(--pink), var(--lavender)); border-radius: 2px; }
+        .tl-item { position: relative; padding-bottom: 16px; }
+        .tl-item:last-child { padding-bottom: 0; }
+        .tl-dot { position: absolute; left: -20px; top: 2px; width: 10px; height: 10px; border-radius: 50%; background: #fff; border: 2px solid var(--pink); }
+        .tl-title { font-size: 13.5px; font-weight: 700; color: #4C1D95; margin-bottom: 3px; }
+        .tl-meta { font-size: 12px; color: var(--muted); }
+
         .category-section { margin-bottom: 36px; }
         .category-header {
             display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700;
@@ -84,14 +145,11 @@
             border-bottom: 1px solid var(--border); transition: background 300ms ease-out;
             animation: fadeInUp 400ms ease-out backwards;
         }
-        .item:nth-child(1) { animation-delay: 0ms; }
-        .item:nth-child(2) { animation-delay: 80ms; }
-        .item:nth-child(3) { animation-delay: 160ms; }
-        .item:nth-child(4) { animation-delay: 240ms; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
         .item:last-child { border-bottom: none; }
         .item:hover { background: rgba(255,255,255,0.25); }
         .item.done { opacity: 0.45; }
+        .item.filtered-out { display: none; }
         .item-left { display: flex; align-items: center; gap: 14px; min-width: 0; }
         .avatar {
             width: 36px; height: 36px; border-radius: 999px;
@@ -101,6 +159,7 @@
         .task-name { font-weight: 700; font-size: 14px; margin-bottom: 5px; color: #4C1D95; }
         .meta-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .meta-pill { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--muted); }
+        .confidence-pill { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; color: #047857; background: rgba(167,243,208,0.35); padding: 3px 9px; border-radius: 999px; }
         .priority-pill { padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; }
         .priority-high { background: rgba(249, 113, 143, 0.2); color: #DB2777; }
         .priority-medium { background: rgba(253, 186, 116, 0.25); color: #C2410C; }
@@ -116,6 +175,7 @@
         }
         .btn-done:hover { border-color: #F9A8D4; color: #DB2777; background: rgba(255,255,255,0.8); }
         .empty-state { padding: 30px 22px; text-align: center; color: var(--muted); font-size: 13px; }
+
         #toast-container { position: fixed; top: 24px; right: 90px; z-index: 999; display: flex; flex-direction: column; gap: 10px; }
         .toast {
             background: rgba(255,255,255,0.75); backdrop-filter: blur(20px); border: 1px solid var(--border);
@@ -170,10 +230,7 @@
             width: 9px; height: 9px; border-radius: 50%; background: #34D399;
             display: inline-block; margin-right: 6px; animation: pulse 2s ease-in-out infinite;
         }
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(52,211,153,0.5); }
-            50% { box-shadow: 0 0 0 7px rgba(52,211,153,0); }
-        }
+        @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(52,211,153,0.5); } 50% { box-shadow: 0 0 0 7px rgba(52,211,153,0); } }
         .agent-status { font-size: 12px; color: var(--muted); display: flex; align-items: center; }
         .log-entry { padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 12px; animation: fadeInUp 400ms ease-out backwards; color: var(--text); }
         .log-entry:last-child { border-bottom: none; }
@@ -186,10 +243,19 @@
             transition: all 300ms ease-out; margin-top: 12px; width: 100%; font-weight: 600;
         }
         .btn-ghost:hover { border-color: #F9A8D4; color: #DB2777; background: rgba(255,255,255,0.7); }
-        .section-label {
-            font-size: 12px; font-weight: 700; color: #A855F7;
-            text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0;
+        .section-label { font-size: 12px; font-weight: 700; color: #A855F7; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0; }
+
+        /* Floating next-deadline reminder */
+        .reminder-widget {
+            position: fixed; bottom: 24px; right: 24px; z-index: 900; width: 300px;
+            padding: 18px; box-shadow: 0 20px 60px rgba(196,181,253,0.4);
         }
+        .reminder-widget.hidden { display: none; }
+        .reminder-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+        .reminder-title { font-size: 11.5px; font-weight: 700; color: #C2410C; text-transform: uppercase; letter-spacing: 0.05em; }
+        .reminder-close { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 15px; }
+        .reminder-body p { margin: 0 0 4px; font-size: 13.5px; font-weight: 700; color: #4C1D95; }
+        .reminder-body span { font-size: 12px; color: var(--muted); }
     </style>
 </head>
 <body>
@@ -215,6 +281,21 @@
         <button class="btn-ghost" onclick="forceExpire()">⚡ Demo: Trigger Overdue Check</button>
     </div>
 
+    {% set pending_with_date = items|selectattr('status','equalto','pending')|selectattr('deadline_date')|list %}
+    {% set next_item = (pending_with_date|sort(attribute='deadline_date')|first) if pending_with_date else None %}
+    {% if next_item %}
+    <div class="glass reminder-widget" id="reminderWidget" data-item-id="{{ next_item.id }}">
+        <div class="reminder-top">
+            <span class="reminder-title">⏰ Next Deadline</span>
+            <button class="reminder-close" onclick="dismissReminder('{{ next_item.id }}')">✕</button>
+        </div>
+        <div class="reminder-body">
+            <p>{{ next_item.task }}</p>
+            <span>{{ next_item.owner }} · {{ next_item.deadline_text }}</span>
+        </div>
+    </div>
+    {% endif %}
+
     <div class="container">
         <div class="layout">
 
@@ -227,10 +308,35 @@
                     chases down execution until every item is closed.
                 </p>
 
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="paste" onclick="switchTab('paste')">📝 Paste Transcript</button>
+                    <button class="tab-btn" data-tab="audio" onclick="switchTab('audio')">🎙️ Upload Audio</button>
+                </div>
+
                 <div class="glass input-card">
-                    <textarea id="transcript" placeholder="Paste your meeting transcript here..."></textarea>
+                    <div class="tab-panel active" data-panel="paste">
+                        <textarea id="transcript" placeholder="Paste your meeting transcript here..."></textarea>
+                    </div>
+                    <div class="tab-panel" data-panel="audio">
+                        <div class="dropzone" id="dropzone" onclick="document.getElementById('audioInput').click()">
+                            <p>🎧 Drag &amp; drop an audio file, or click to browse</p>
+                            <div class="fname" id="audioFileName"></div>
+                            <input type="file" id="audioInput" accept="audio/*" style="display:none">
+                        </div>
+                    </div>
+
+                    <div class="processing" id="processing">
+                        <div class="proc-steps">
+                            <div class="proc-step" data-step="0"><span class="ring"></span>Reading content...</div>
+                            <div class="proc-step" data-step="1"><span class="ring"></span>Understanding context...</div>
+                            <div class="proc-step" data-step="2"><span class="ring"></span>Finding action items...</div>
+                            <div class="proc-step" data-step="3"><span class="ring"></span>Detecting meetings...</div>
+                            <div class="proc-step" data-step="4"><span class="ring"></span>Assigning owners...</div>
+                        </div>
+                    </div>
+
                     <div class="input-footer">
-                        <button class="btn-extract" onclick="extractItems()">✨ Extract Action Items</button>
+                        <button class="btn-extract" id="extractBtn" onclick="extractItems()">✨ Extract Action Items</button>
                     </div>
                 </div>
                 <div id="status"></div>
@@ -248,10 +354,46 @@
                         <div class="stat-num">{{ items|selectattr('status','equalto','done')|list|length }}</div>
                         <div class="stat-label">Completed</div>
                     </div>
+                    <div class="glass stat-chip">
+                        <div class="stat-num">{{ items|selectattr('category','equalto','meeting')|list|length }}</div>
+                        <div class="stat-label">Meetings Detected</div>
+                    </div>
+                    <div class="glass stat-chip">
+                        <div class="stat-num">{{ items|selectattr('category','equalto','email')|list|length }}</div>
+                        <div class="stat-label">Emails Summarized</div>
+                    </div>
+                    <div class="glass stat-chip">
+                        <div class="stat-num">{{ items|length * 4 }}m</div>
+                        <div class="stat-label">Time Saved</div>
+                    </div>
                 </div>
             </div>
 
             <div class="right-panel">
+                {% if items|length > 0 %}
+                <div class="filter-row">
+                    <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">All</button>
+                    <button class="filter-btn" data-filter="pending" onclick="setFilter('pending')">Pending</button>
+                    <button class="filter-btn" data-filter="done" onclick="setFilter('done')">Completed</button>
+                </div>
+                {% endif %}
+
+                {% set meeting_items_dated = items|selectattr('category','equalto','meeting')|selectattr('deadline_date')|list %}
+                {% if meeting_items_dated %}
+                <div class="glass timeline-card">
+                    <div class="timeline-head">Upcoming Meetings</div>
+                    <div class="timeline">
+                        {% for m in meeting_items_dated|sort(attribute='deadline_date') %}
+                        <div class="tl-item">
+                            <div class="tl-dot"></div>
+                            <div class="tl-title">{{ m.task }}</div>
+                            <div class="tl-meta">{{ m.deadline_text }} · {{ m.owner }}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
                 {% set categories = [('meeting', '📅', 'Meetings'), ('email', '📧', 'Emails'), ('todo', '✅', 'To-Dos')] %}
                 {% for cat_key, cat_icon, cat_label in categories %}
                 {% set cat_items = items|selectattr('category','equalto',cat_key)|list %}
@@ -260,7 +402,7 @@
                     <div class="category-header"><span class="category-icon">{{ cat_icon }}</span> {{ cat_label }} ({{ cat_items|length }})</div>
                     <div class="glass feed-card">
                         {% for item in cat_items %}
-                        <div class="item {{ 'done' if item.status == 'done' else '' }}" data-id="{{ item.id }}">
+                        <div class="item {{ 'done' if item.status == 'done' else '' }}" data-id="{{ item.id }}" data-status="{{ item.status }}">
                             <div class="item-left">
                                 <div class="avatar">{{ item.owner[:2].upper() if item.owner != 'Unassigned' else '??' }}</div>
                                 <div>
@@ -269,6 +411,7 @@
                                         <span class="meta-pill">{{ item.owner }}</span>
                                         <span class="meta-pill">📅 {{ item.deadline_text }}</span>
                                         <span class="priority-pill priority-{{ item.priority }}">{{ item.priority|upper }}</span>
+                                        <span class="confidence-pill">✓ {{ item.confidence|default(70) }}%</span>
                                     </div>
                                 </div>
                             </div>
@@ -303,9 +446,54 @@
                     if(id) markDone(id);
                 });
             });
+            checkDismissedReminder();
             loadActivity();
             setInterval(loadActivity, 6000);
         });
+
+        /* --- Input tabs --- */
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.getAttribute('data-tab') === tab));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.getAttribute('data-panel') === tab));
+        }
+
+        const dropzone = document.getElementById('dropzone');
+        const audioInput = document.getElementById('audioInput');
+        let audioFile = null;
+        audioInput.addEventListener('change', e => { if (e.target.files[0]) { audioFile = e.target.files[0]; renderAudioName(); } });
+        ['dragover','dragenter'].forEach(evt => dropzone.addEventListener(evt, e => { e.preventDefault(); dropzone.classList.add('drag'); }));
+        ['dragleave','drop'].forEach(evt => dropzone.addEventListener(evt, e => { e.preventDefault(); dropzone.classList.remove('drag'); }));
+        dropzone.addEventListener('drop', e => { if (e.dataTransfer.files[0]) { audioFile = e.dataTransfer.files[0]; renderAudioName(); } });
+        function renderAudioName() { document.getElementById('audioFileName').textContent = audioFile ? audioFile.name : ''; }
+
+        /* --- Filter (all/pending/done) --- */
+        function setFilter(filter) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.getAttribute('data-filter') === filter));
+            document.querySelectorAll('.category-section').forEach(section => {
+                let visibleCount = 0;
+                section.querySelectorAll('.item').forEach(item => {
+                    const match = filter === 'all' || item.getAttribute('data-status') === filter;
+                    item.classList.toggle('filtered-out', !match);
+                    if (match) visibleCount++;
+                });
+                section.style.display = visibleCount > 0 ? '' : 'none';
+            });
+        }
+
+        /* --- Floating next-deadline reminder --- */
+        function dismissReminder(id) {
+            sessionStorage.setItem('ft_dismissed_reminder', id);
+            const widget = document.getElementById('reminderWidget');
+            if (widget) widget.classList.add('hidden');
+        }
+        function checkDismissedReminder() {
+            const widget = document.getElementById('reminderWidget');
+            if (!widget) return;
+            const dismissed = sessionStorage.getItem('ft_dismissed_reminder');
+            if (dismissed && dismissed === widget.getAttribute('data-item-id')) {
+                widget.classList.add('hidden');
+            }
+        }
 
         function showToast(title, body) {
             const container = document.getElementById('toast-container');
@@ -343,12 +531,8 @@
 
         function updateBadge() {
             const badge = document.getElementById('notifBadge');
-            if (unreadCount > 0) {
-                badge.textContent = unreadCount > 9 ? '9+' : unreadCount;
-                badge.style.display = 'flex';
-            } else {
-                badge.style.display = 'none';
-            }
+            if (unreadCount > 0) { badge.textContent = unreadCount > 9 ? '9+' : unreadCount; badge.style.display = 'flex'; }
+            else { badge.style.display = 'none'; }
         }
 
         function toggleActivityDrawer() {
@@ -356,12 +540,8 @@
             const overlay = document.getElementById('drawerOverlay');
             drawer.classList.toggle('open');
             overlay.classList.toggle('open');
-            if (drawer.classList.contains('open')) {
-                unreadCount = 0;
-                updateBadge();
-            }
+            if (drawer.classList.contains('open')) { unreadCount = 0; updateBadge(); }
         }
-
         function closeActivityDrawer() {
             document.getElementById('activityDrawer').classList.remove('open');
             document.getElementById('drawerOverlay').classList.remove('open');
@@ -372,18 +552,58 @@
             loadActivity();
         }
 
+        /* --- Processing animation --- */
+        function runProcessingAnimation() {
+            return new Promise(resolve => {
+                document.getElementById('processing').classList.add('active');
+                const steps = document.querySelectorAll('.proc-step');
+                let i = 0;
+                const tick = () => {
+                    steps.forEach(s => s.classList.remove('active'));
+                    if (i > 0) steps[i-1].classList.add('done');
+                    if (i < steps.length) {
+                        steps[i].classList.add('active');
+                        i++;
+                        setTimeout(tick, 420);
+                    } else {
+                        document.getElementById('processing').classList.remove('active');
+                        steps.forEach(s => s.classList.remove('done', 'active'));
+                        resolve();
+                    }
+                };
+                tick();
+            });
+        }
+
         async function extractItems() {
-            const transcript = document.getElementById('transcript').value;
+            const activeTab = document.querySelector('.tab-btn.active').getAttribute('data-tab');
             const status = document.getElementById('status');
-            if (!transcript.trim()) { status.textContent = "Paste a transcript first."; return; }
+            const btn = document.getElementById('extractBtn');
+
+            let transcript = '';
+            if (activeTab === 'audio') {
+                if (!audioFile) { status.textContent = "Choose an audio file first."; return; }
+                // Placeholder: real speech-to-text needs a backend STT integration (e.g. Whisper API).
+                // For now we route the filename through the normal pipeline as a stand-in action item.
+                transcript = `Review and follow up on audio recording "${audioFile.name}" by next week.`;
+            } else {
+                transcript = document.getElementById('transcript').value;
+                if (!transcript.trim()) { status.textContent = "Paste a transcript first."; return; }
+            }
+
+            btn.disabled = true;
             status.textContent = "Agent extracting action items...";
-            const res = await fetch('/extract', {
+
+            const animPromise = runProcessingAnimation();
+            const fetchPromise = fetch('/extract', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ transcript })
-            });
-            const data = await res.json();
-            if (data.error) { status.textContent = data.error; return; }
+            }).then(r => r.json());
+
+            const [, data] = await Promise.all([animPromise, fetchPromise]);
+
+            if (data.error) { status.textContent = data.error; btn.disabled = false; return; }
             status.textContent = "Done. Reloading...";
             location.reload();
         }
